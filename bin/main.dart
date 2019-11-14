@@ -17,19 +17,9 @@ import 'dart:math';
 /// can be nested Matroyshka style, and false otherwise.
 bool matryoshka(List<List<int>> numbersList) => !numbersList
     .any((subList) => !canListBeNestedInAnyOtherList(subList, numbersList));
-//  numbersList.forEach((subList) => subList.sort());
-//  List listOfMin = [];
-//  List listOfMax = [];
-//  numbersList.forEach((subList) {
-//    listOfMin.add(subList.first);
-//    listOfMax.add(subList.last);
-//  });
-//  print(listOfMin);
-//  print(listOfMax);
 compare2Lists4Nesting(List<int> a, List<int> b) =>
     (a.reduce(min) > b.reduce(min) && a.reduce(max) < b.reduce(max)) ||
     (b.reduce(min) > a.reduce(min) && b.reduce(max) < a.reduce(max));
-
 canListBeNestedInAnyOtherList(List<int> a, List<List<int>> numbersList) =>
     numbersList.any((subList) => compare2Lists4Nesting(subList, a));
 
