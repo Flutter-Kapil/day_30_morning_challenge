@@ -16,27 +16,32 @@ import 'dart:math';
 /// Create a function that returns true if every single sub-array inside an array
 /// can be nested Matroyshka style, and false otherwise.
 bool matryoshka(List<List<int>> numbersList) {
+  if (numbersList.length == 1) {
+    return false;
+  }
   numbersList.forEach((subList) => subList.sort());
   numbersList
       .where((subList) => subList.length > 1)
       .forEach((subList) => subList.removeRange(1, subList.length - 1));
-  print(numbersList);
-  return !numbersList
-      .any((subList) => !canListBeNestedInAnyOtherList(subList, numbersList));
+  numbersList.sort((a, b) => a[0].compareTo(b[0]));
+  for (int i = 0; i < numbersList.length - 1; i++) {
+    if (!compare2Lists4Nesting(numbersList[i], numbersList[i + 1])) {
+      return false;
+    }
+  }
+  return true;
 }
 
 compare2Lists4Nesting(List<int> a, List<int> b) =>
-    (a.reduce(min) > b.reduce(min) && a.reduce(max) < b.reduce(max)) ||
-    (b.reduce(min) > a.reduce(min) && b.reduce(max) < a.reduce(max));
-canListBeNestedInAnyOtherList(List<int> a, List<List<int>> numbersList) =>
-    numbersList.any((subList) => compare2Lists4Nesting(subList, a));
+    (b.first > a.first && b.last < a.last);
 
 main() {
   //two lists
-  print(matryoshka([
+  matryoshka([
     [2, 3, 9, 5],
-    [10, 2, 1]
-  ]));
+    [10, 2, 1],
+    [3],
+  ]);
   //multiple lists
 //  matryoshka([
 //    [4, 9, 8, 14, 11],
