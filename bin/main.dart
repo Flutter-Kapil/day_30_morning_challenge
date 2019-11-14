@@ -16,12 +16,15 @@ import 'dart:math';
 /// Create a function that returns true if every single sub-array inside an array
 /// can be nested Matroyshka style, and false otherwise.
 bool matryoshka(List<List<int>> numbersList) {
-  numbersList.forEach((subList)=>subList.sort());
-  numbersList.where((subList)=>subList.length>1).forEach((subList)=>subList.removeRange(1, subList.length-1));
+  numbersList.forEach((subList) => subList.sort());
+  numbersList
+      .where((subList) => subList.length > 1)
+      .forEach((subList) => subList.removeRange(1, subList.length - 1));
   print(numbersList);
   return !numbersList
-    .any((subList) => !canListBeNestedInAnyOtherList(subList, numbersList));
+      .any((subList) => !canListBeNestedInAnyOtherList(subList, numbersList));
 }
+
 compare2Lists4Nesting(List<int> a, List<int> b) =>
     (a.reduce(min) > b.reduce(min) && a.reduce(max) < b.reduce(max)) ||
     (b.reduce(min) > a.reduce(min) && b.reduce(max) < a.reduce(max));
